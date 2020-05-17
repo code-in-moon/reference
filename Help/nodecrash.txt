@@ -1,0 +1,25 @@
+you have three type of modules in node
+1-nodecore modules : file,path,http
+2- 3rd party modules : express
+3- custome modules  
+
+import modules in node
+var path = require('path');
+var mrfile = require('./myfile')
+
+in terminal of project
+node --version
+npm --version
+
+npm init
+npm install :install all dependecies in pakage.json
+-install dependecies like express or uuid or ....
+npm install uuid
+
+-install dev dependecies = just for development like nodemon or ...
+npm install --save-dev nodemon  or 
+npm install -D nodemonnpm
+
+you can run js file by write in terminal
+node index.js   or
+node index
