@@ -1,0 +1,225 @@
+mongo db
+
+install
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+sudo apt-get install gnupg
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+echo "mongodb-org hold" | sudo dpkg --set-selections
+echo "mongodb-org-server hold" | sudo dpkg --set-selections
+echo "mongodb-org-shell hold" | sudo dpkg --set-selections
+echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
+echo "mongodb-org-tools hold" | sudo dpkg --set-selections
+
+run mongodb
+ps --no-headers -o comm 1
+you have 2 result
+
+Option1 :systemd
+run this command
+sudo systemctl daemon-reload
+sudo systemctl start mongod
+sudo systemctl status mongod
+sudo systemctl enable mongod
+sudo systemctl stop mongod
+sudo systemctl restart mongod
+mongo
+sudo service mongod stop
+sudo apt-get purge mongodb-org*  : remove mogo db
+sudo rm -r /var/log/mongodb
+sudo rm -r /var/lib/mongodb
+
+Option 2 : init 
+run this command
+sudo service mongod start
+sudo service mongod status
+sudo service mongod stop
+sudo service mongod restart
+mongo
+
+mongodb shell
+show dbs
+use dbname
+db.createCollection("posts")
+show collections
+
+db.posts.insert({
+    title:"post one",
+    body : "body of post one",
+    category:"news",
+    likes:4,
+    user:{
+        name:"john doe",
+        status:"auth"
+    },
+    tags:["news","events"],
+
+    date: Date()   //put current date and time
+})
+
+db.posts.insertMany([
+{
+    title:"post two",
+    body : "body of post two",
+    category:"news",
+    likes:41,
+    user:{
+        name:"john doe",
+        status:"auth"
+    },
+    tags:["news","events"],
+
+    date: Date()   //put current date and time
+},
+{
+    title:"post three",
+    body : "body of post three",
+    category:"news",
+    likes:50,
+    user:{
+        name:"john doe",
+        status:"auth"
+    },
+    tags:["news","financial"],
+
+    date: Date()   //put current date and time
+},
+{
+    title:"post two",
+    body : "body of post four",
+    category:"news",
+    likes:2,
+    user:{
+        name:"john doe",
+        status:"auth"
+    },
+    tags:["order","events"],
+
+    date: Date()   //put current date and time
+}
+
+])
+
+db.posts.find()
+db.posts.find().pretty()
+db.posts.find({likes:50})
+
+db.posts.find().sort({tittle: 1}).pretty() 
+1 = assending  -1 = dessending
+db.posts.find({title : "post two"})
+db.posts.find().limit(2)
+db.posts.find().sort({tittle: p}).limit(3)
+
+db.posts.find().forEach(function(item){
+    print("blog post: " + item.likes)
+})
+
+update  we usually use id upsert : if it doesn exist create it
+this update whole document
+db.posts.update(
+...     {title:"post three"}, 
+...     {
+...         title: "post five",
+...         performance : "good from update",
+...         date: Date()
+... 
+...     },
+...     {upsert: true}
+... 
+... )
+
+#set operator
+for updating some fild use $set
+
+db.posts.update({title: "post one"},{
+     $set: {
+    category : "oil",
+	likes : 5
+     }
+     } 
+)
+
+#inc operator : increese some field
+
+db.posts.update({title: "post one"},
+{$inc: {likes: 10}}
+)
+
+#rename a field
+db.posts.update({title : "post one"},
+{$rename: {likes: "views"}}
+)
+
+ delete a doc 
+ db.posts.remove(
+     {_id : ObjectId("5ebd5980354d53199a894faf")})
+
+db.posts.update({_id: ObjectId("5ebd5980354d53199a894fae")},
+{$rename: {title:"head"}})
+
+db.posts.find({_id: ObjectId("5ebd5980354d53199a894fae")}).pretty()
+
+you can have comment header
+
+db.posts.update({_id: ObjectId("5ebd5980354d53199a894fae")},
+ {
+    $set: {
+     comments:[
+        {
+        user :"marry",
+        body: "excellent",
+        date: Date
+        },
+        {
+        user :"joe",
+        body: "excellent and bad ",
+        date: Date()
+        }
+     ]
+    }
+  }
+)
+
+you can find base on element on comment like user
+db.posts.find(
+{comments:
+    {$elemMatch :{user: "marry"}}
+    
+}
+).pretty()
+
+search
+add index
+db.posts.createIndex({title:"text"})
+db.posts.find(
+    {$text:{$search:"\"post f\""}}
+).pretty()
+
+
+db.posts.update({_id : ObjectId("5ebd5980354d53199a894fad")},
+{$set{ views : 15}}
+)
+
+
+
+greater than
+db.posts.find(
+    {views:{$gt:20}}
+).pretty()
+
+less than
+db.posts.find(
+    {views:{$lt:20}}
+).pretty()
+
+less than equal to 
+db.posts.find(
+    {views:{$lte:25}}
+).pretty()
+
+
+cloud atlas on mango db
+
+
