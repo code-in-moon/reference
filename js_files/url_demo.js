@@ -17,3 +17,17 @@ console.log(myUrl.hostname);
 
 //path name
 console.log(myUrl.pathname);
+
+//serialized query
+console.log(myUrl.search);
+
+//searchparams object
+console.log(myUrl.searchParams);
+// add params to search
+myUrl.searchParams.append("user", "1233");
+console.log(myUrl.searchParams);
+
+//loop through serachparams
+myUrl.searchParams.forEach((key, value) => {
+  console.log(`${key} === ${value}`);
+});
