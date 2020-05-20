@@ -1,0 +1,19 @@
+{
+  "name": "reference",
+  "version": "1.0.0",
+  "description": "describsion of node",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "author": "codeinmoon",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "prettier": "2.0.5"
+  }
+}
