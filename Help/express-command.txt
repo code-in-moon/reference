@@ -1,0 +1,8 @@
+npm i moment
+
+lsof -i tcp:3000
+
+COMMAND  PID   USER   FD   TYPE  DEVICE  SIZE/OFF NODE NAME
+node     5805  xyz    12u  IPv6  63135    0t0     TCP  *:3000 (LISTEN)
+
+kill -9 5805
