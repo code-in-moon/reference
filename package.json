@@ -1,0 +1,28 @@
+{
+  "name": "reference",
+  "version": "1.0.0",
+  "description": "REST API source",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-in-moon/reference.git"
+  },
+  "author": "code-in-moon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/code-in-moon/reference/issues"
+  },
+  "homepage": "https://github.com/code-in-moon/reference#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "moment": "^2.26.0",
+    "mongoose": "^5.9.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
